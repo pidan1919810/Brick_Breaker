@@ -1,7 +1,7 @@
 import pygame
 from .base_object import Base_object
 from pygame import Vector2
-from setting import BOARD_LENGTH, SCREEN_WIDTH, BOARD_MOVEING_SPEED, BOARD_Y
+from settings.setting import BOARD_LENGTH, SCREEN_WIDTH, BOARD_MOVEING_SPEED, BOARD_Y
 
 class Board(Base_object):
     def __init__(self) -> None:

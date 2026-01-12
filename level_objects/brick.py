@@ -1,7 +1,7 @@
 import pygame
 from .base_object import Base_object
 from pygame.event import Event
-from setting import BRICK_SIZE, SCREEN_HEIGHT, SCREEN_WIDTH, LINES_OF_BRICKS
+from settings.setting import BRICK_SIZE, SCREEN_HEIGHT, SCREEN_WIDTH, LINES_OF_BRICKS
 
 class Brick(Base_object):
     def __init__(self, x:float, y:float) -> None:

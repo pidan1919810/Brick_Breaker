@@ -57,7 +57,7 @@ class Button(Base_object):
             screen.fill("white", self.get_rect())
             
         if self.text != '':
-            from setting import TEXT_FONT
+            from settings.setting import TEXT_FONT
             font = pygame.font.Font(TEXT_FONT,22)
             
             max_width = self.w - 2

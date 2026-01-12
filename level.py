@@ -2,7 +2,7 @@ from typing import List
 import pygame
 from pygame.event import Event
 from level_objects.base_object import Base_object
-from setting import *
+from settings.setting import *
 from level_objects.ball import ball_manager, Normal_ball
 from level_objects.board import board
 from level_objects.brick import brick_manager, Brick

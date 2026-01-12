@@ -6,7 +6,7 @@ from abc import ABC, abstractmethod
 from typing import override
 
 from .base_object import Base_object
-from setting import *
+from settings.setting import *
 
 class Base_balls(Base_object, ABC):
     """

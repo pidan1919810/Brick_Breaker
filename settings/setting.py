@@ -1,4 +1,4 @@
-import cheat
+import settings.cheat as cheat
 #界面相关
 SCREEN_WIDTH = 600
 SCREEN_HEIGHT = 800
@@ -8,15 +8,16 @@ FPS = 30
 import sys
 import os
 
-def resource_path(relative_path):
-    """获取 PyInstaller 打包后的资源路径"""
-    try:
-        base_path = sys._MEIPASS # type: ignore
-    except Exception:
-        base_path = os.path.abspath(".")
-    return os.path.join(base_path, relative_path)
+import os
+import sys
 
-TEXT_FONT: str = resource_path("font/ZiTiGuanJiaFangSongTi-2.ttf")
+def resource_path(path):
+    if hasattr(sys, "_MEIPASS"):
+        return os.path.join(sys._MEIPASS, path)  # type: ignore
+    return os.path.join(os.path.abspath("."), path)
+
+
+TEXT_FONT: str = resource_path("assets/font/ZiTiGuanJiaFangSongTi-2.ttf")
 
 #失败界面
 FAILED_TEXT_SIZE = 30
