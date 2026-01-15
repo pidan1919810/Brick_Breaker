@@ -2,6 +2,7 @@ import pygame
 from .base_object import Base_object
 from pygame.event import Event
 from settings.setting import BRICK_SIZE, SCREEN_HEIGHT, SCREEN_WIDTH, LINES_OF_BRICKS
+from timer import Timer
 
 class Brick(Base_object):
     def __init__(self, x:float, y:float) -> None:
@@ -29,6 +30,8 @@ class Brick_manager(Base_object):
     def init(self) -> None:
         self.bricks = []
         self.make_brick()
+        self.infinite = False
+        self.drop_timer = Timer(1000)
     
     def break_brick(self, brick:Brick) -> bool:
         #返回是否成功
@@ -49,7 +52,9 @@ class Brick_manager(Base_object):
         return tuple(self.bricks)
     
     def update(self, events:list[pygame.event.Event]) -> None:
-        pass
+        if self.infinite:
+            if self.drop_timer.ready():
+                self.new_line()
     
     def draw(self, screen:pygame.Surface) -> None:
         for brick in self.bricks:
@@ -68,6 +73,9 @@ class Brick_manager(Base_object):
             
         for x in range(0, SCREEN_WIDTH, BRICK_SIZE):
             self.bricks.append(Brick.create(x,0))
+            
+    def set_mode(self, infinite:bool) -> None:
+        self.infinite = infinite
 
 
 brick_manager = Brick_manager()

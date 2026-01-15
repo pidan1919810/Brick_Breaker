@@ -5,7 +5,7 @@ from pygame.event import Event
 from abc import ABC, abstractmethod
 from typing import override
 
-from .base_object import Base_object
+from .base_object import Base_object, Base_manager
 from settings.setting import *
 
 class Base_balls(Base_object, ABC):
@@ -159,7 +159,7 @@ class Effect_ball(Base_balls):
         return super().out_screen()
     
 
-class Ball_manager(Base_object):
+class Ball_manager(Base_manager[Base_balls]):
     balls:list[Base_balls]
     ball_count:int
     

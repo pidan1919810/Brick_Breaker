@@ -1,7 +1,9 @@
 import pygame
+from easy_types import *
 from pygame.event import Event
-from typing import Self
+from typing import Self, Any, Generic, TypeVar
 from abc import ABC, abstractmethod
+
 
 
 class Base_object(ABC):
@@ -15,11 +17,11 @@ class Base_object(ABC):
         self.y = y
     
     @abstractmethod
-    def draw(self, screen:pygame.Surface) -> None:
+    def draw(self, screen:Surface) -> None:
         pass
     
     @abstractmethod
-    def update(self, events:list[Event]) -> None:
+    def update(self, events:L_events) -> None:
         pass
     
     @classmethod
@@ -30,8 +32,46 @@ class Base_object(ABC):
         return self.x
     def get_y(self) -> float:
         return self.y
-    def get_pos(self) -> pygame.Vector2:
+    def get_pos(self) -> Vector2:
         return pygame.Vector2(self.x, self.y)
+    
+T = TypeVar("T")
+    
+class Base_manager(Generic[T], ABC):
+    objects:list[T]
+    object_count:int
+    
+    def __init__(self) -> None:
+        self.init()
+    
+    def init(self) -> None:
+        self.object_count = 0
+        self.objects.clear()
+    
+    def extend( 
+            self, 
+            cls:type[T], 
+            **args:tuple[float, float] | Vector2
+        ) -> bool:
+        for pos in args:
+            self.object_count += 1
+            self.objects.append(cls.create(pos[0], pos[1]))  # type: ignore
+        return True
+    
+    def update(self, events) -> None:
+        for object in self.objects:
+            object.update(events)  # type: ignore
+            
+    def draw(self, screen:Surface) -> None:
+        for object in self.objects:
+            object.draw(screen)  # type: ignore
+            
+    def delete_item(self, object:T) -> None:
+        self.object_count -= 1
+        self.objects.remove(object)
+        
+    def get_cout(self) -> int:
+        return self.object_count
     
 class Base_image(Base_object, ABC):
     """
